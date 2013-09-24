@@ -1,0 +1,131 @@
+
+form 
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+.menuDiv 
+{
+	font-family:	Georgia;
+	font-size: 		12px;
+	font-style: 	bold;
+	font-color: 	green;
+	font-weight: 	bold;
+	position:		relative; 
+	z-index:		2;
+	overflow: 		visible !important;
+} 
+.content 
+{
+	font-size: 10px;
+	width:100%;
+}
+
+content.createCase 
+{
+	font-size: 10px;
+	width:100%;	
+}
+.ui-datagrid-no-border, .ui-datagrid-no-border td {
+   border: none;
+   background-color: transparent !important;
+}
+
+.imgGrid tr, .imgGrid td {
+ 	background: none !important;
+    border: none !important;
+}
+
+div.ui-datepicker{
+	font-size: 10px!important;
+}
+
+.ui-autocomplete input 
+{
+    width:280px;
+}
+
+.ui-autocomplete-list-item
+{
+	font-size: 10px;	
+}
+
+.completed {
+    background: pink;
+}
+
+.firstCol 
+{
+	vertical-align: top;
+	width: 500px;
+}
+
+.secondCol 
+{
+	vertical-align: top;
+}
+
+.firstBlockCol
+{
+	vertical-align: center !important;
+	text-align: right !important;
+	width: 180px !important;
+	margin-right: 10px !important;
+}
+
+.secondBlockCol
+{
+	vertical-align: center !important;
+	text-align: left !important;
+	width: 300px !important;
+}
+
+.dataBlockCol 
+{
+	vertical-align: top;
+	text-align: center;
+	width: 480px;
+	margin-top: 5px;
+}
+
+.secondBlockCol1
+{
+	vertical-align: center;
+	text-align: left;
+	width: 400px;	
+}
+
+.required1
+{
+	margin-left: 5px;
+	vertical-align: top;
+	text-align: left;
+	color:red;
+	font-size: 16px;
+	font-weight: bold;
+	width: 5px;
+}
+
+li.ui-selectonemenu-item{
+	font-size:12px;
+}
+
+.notetext {
+	font-style: italic !important;
+	color: #0A2A0A !important;
+	font-size: 10px !important;	
+}
+.ui-accordion .ui-accordion-header a {
+	font-style: italic !important;
+	font-weight: bold !important;
+    text-align: left !important;
+    background: #DDDBD9 !important;
+}
+
+.ui-accordion-content {
+    text-align: left !important;
+    margin-left: 5px !important;
+}
+
+ 

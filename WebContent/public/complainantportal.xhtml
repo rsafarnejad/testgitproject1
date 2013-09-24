@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/templates/complainantportaltemplate.xhtml">
+
+	<ui:define name="content">
+		<script type="text/javascript" src="../resources/script/BlockUI.js" />
+		<script type="text/javascript">
+			function blockScreen() {
+				$.blockUI({
+					message: '<h4><img src="../resources/images/ajax-loader.gif" /> Processing, Please Wait...</h4>',
+					css: {
+						fontsize: '8px', 
+				    	padding:'10px',
+				    	margin:'13px',
+				    	color:'#666'} 
+					}); 
+			}
+		</script>
+		<h:form id="form" prependid="false" enctype="multipart/form-data">
+			<p:messages id="messages" />
+			<p:panel id="blockPn2" header="Complainant Portal"
+				style="margin-bottom: 5px;">
+
+				<p:panel id="pn12" header="Complainant Data Form"
+					style="margin-bottom: 5px;">
+					<div align="center">
+
+						<h:panelGrid columns="3"
+							columnClasses="firstBlockCol,required1,secondBlockCol"
+							style="width: 100%">
+							
+							<h:outputText value="Document Submitter Email: "
+							style="font-weight: bold;" />
+						<h:outputText value="*" title="Required field" />
+						<p:inputText
+							value="#{complainantPortalController.complainantdata.complainantEmail}"
+							id="documentSubmitterEmail" label="documentSubmitterEmail"
+							title="Document Submitter Email" maxlength="320" size="50"
+							required="true"
+							requiredMessage=" Document Submitter Email is required"
+							validatorMessage="Document Submitter Email is not valid">
+							<f:validateRegex
+								pattern="^\s*[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]\s*$" />
+						</p:inputText>
+                            	
+							<h:outputText value="Complainant First Name: "
+								style="font-weight: bold;" />
+							<h:outputText value="*" title="Required field" />
+							<p:inputText
+								value="#{complainantPortalController.complainantdata.complainantFirstName}"
+								id="complainantFirstName" label="complainantFirstName"
+								title="Complainant First Name" maxlength="50" size="24"
+								required="true"
+								requiredMessage=" Complainant First Name is required">
+							</p:inputText>
+
+							<h:outputText value="Complainant Last Name: "
+								style="font-weight: bold;" />
+							<h:outputText value="*" title="Required field" />
+							<p:inputText
+								value="#{complainantPortalController.complainantdata.complainantLastName}"
+								id="complainantLastName" label="complainantLastName"
+								title="Complainant Last Name" maxlength="50" size="24"
+								required="true"
+								requiredMessage=" Complainant Last Name is required">
+							</p:inputText>
+
+							<h:outputText value="Document Submitter First Name: "
+								style="font-weight: bold;" />
+							<h:outputText value="*" title="Required field" />
+							<p:inputText
+								value="#{complainantPortalController.complainantdata.documentSubmitterFirstName}"
+								id="documentSubmitterFirstName"
+								label="documentSubmitterFirstName"
+								title="Document Submitter First Name" maxlength="50" size="24"
+								required="true"
+								requiredMessage=" Document Submitter First Name is required">
+							</p:inputText>
+
+							<h:outputText value="Document Submitter Last Name: "
+								style="font-weight: bold;" />
+							<h:outputText value="*" title="Required field" />
+							<p:inputText
+								value="#{complainantPortalController.complainantdata.documentSubmitterLastName}"
+								id="documentSubmitterLastName" label="documentSubmitterLastName"
+								title="Document Submitter Last Name" maxlength="50" size="24"
+								required="true"
+								requiredMessage=" Document Submitter Last Name is required">
+							</p:inputText>
+
+							<h:outputText value="Appeal Number(Please provide it for expedited processing):" style="font-weight: bold;" />
+							<h:outputText />
+							<p:inputText
+								value="#{complainantPortalController.complainantdata.appealNumber}"
+								id="appealNumber" title="AppealNumber. (Optional)" maxlength="20"
+								style="width: 150px !important">
+							</p:inputText>
+							
+
+							<h:outputText value="Agency Name: " style="font-weight: bold;" />
+							<h:outputText value="*" title="Required field" />
+							<p:inputText
+								value="#{complainantPortalController.complainantdata.agencyName}"
+								id="agencyName" label="agencyName" title="Agency Name" maxlength="100" size="24"
+								required="true" requiredMessage=" Agency Name is required">
+							</p:inputText>
+
+							<h:outputText value="Agency Number: " style="font-weight: bold;" />
+							<h:outputText value="*" title="Required field" />
+							<p:inputText
+								value="#{complainantPortalController.complainantdata.agencyNumber}"
+								id="agencyNumber" label="agencyNumber" title="Agency Number" maxlength="20"
+								size="24" required="true"
+								requiredMessage=" Agency Number is required">
+							</p:inputText>
+							
+							<h:outputText value="Passcode: " style="font-weight: bold;" />
+							<h:outputText value="*" title="Required field" />
+							<p:inputText
+								value="#{complainantPortalController.token}"
+								id="Passcode" label="Passcode" title="Passcode" maxlength="20"
+								size="24" required="true"
+								requiredMessage=" Passcode is required">
+							</p:inputText>
+							
+						
+							
+						</h:panelGrid>
+						<div align="right">
+							<p:commandLink id="submit" 
+								actionListener="#{complainantPortalController.submit()}" rendered="#{complainantPortalController.disable}"
+								ajax="false">
+								<p:button value="Submit" icon="ui-icon-check" title="Submit" />
+							</p:commandLink>
+						</div>
+
+					</div>
+				</p:panel>
+				<p:panel id="pn22" header="Document Upload" 
+					style="margin-bottom: 5px;" rendered="#{complainantPortalController.showUpload}" >
+					<div align="center">
+
+						<h:panelGrid columns="3"
+							columnClasses="firstBlockCol,required1,secondBlockCol"
+							style="width: 100%">
+
+							<h:outputText value="Document Type: " style="font-weight: bold;" />
+							<h:outputText value="*" title="Required field" />
+							<h:selectOneMenu id="documentType"
+								value="#{complainantPortalController.documentType}"
+								required="true" requiredMessage=" Document Type is required"
+								label="Document Type">
+								<f:selectItem itemLabel="Select a Document Type" itemValue="" />
+								<f:selectItem
+									itemLabel="Complainants Supporting Statement/Brief"
+									itemValue="Complainants Supporting Statement/Brief" />
+								<f:selectItem itemLabel="Status Inquiry"
+									itemValue="Status Inquiry" />
+								<f:selectItem itemLabel="New Appeal" itemValue="New Appeal" />
+								<f:selectItem itemLabel="Request for Reconsideration"
+									itemValue="Request for Reconsideration" />
+								<f:selectItem itemLabel="Compliance Statement"
+									itemValue="Compliance Statement" />
+								<f:selectItem itemLabel="Request for Petition for Enforcement"
+									itemValue="Request for Petition for Enforcement" />
+								<f:selectItem
+									itemLabel="Extension Request (for statements/briefs only)"
+									itemValue="Extension Request (for statements/briefs only)" />
+								<f:selectItem itemLabel="Others" itemValue="Others" />
+								
+							</h:selectOneMenu>
+
+							<h:outputLabel for="file" value="Select File : "
+								style="font-weight: bold;" />
+							<h:outputLabel value="*" title="Required field" />
+							<p:fileUpload id="file"
+								value="#{complainantPortalController.file}" mode="simple"
+								title="Upload document"/>		   
+								
+						</h:panelGrid>
+						<div align="right">
+							<p:commandLink id="fileupload"
+								actionListener="#{complainantPortalController.upload()}" 
+								ajax="false" update="compDataList" >
+								<p:button value="Upload File" icon="ui-icon-check"
+									title="Upload File" />
+							</p:commandLink>
+							
+						</div>
+
+					</div>
+				</p:panel>
+
+				<p:dataTable var="caseDocument"
+					value="#{complainantPortalController.compDataList}" width="100%"
+					id="compDataList" styleClass="data" border="0" cellpadding="2"
+					cellspacing="0" paginator="true" rows="15" editable="true">
+					<p:ajax event="rowEdit"
+						listener="#{complainantPortalController.onCaseDocEdit}"
+						update="compDataList" />
+						
+					 <f:facet name="header">  
+					 <div align="left">
+				            Document List
+				     </div>
+				        </f:facet>
+
+					<p:column sortBy="#{caseDocument.fileName}"
+						style="width: 300 !important;
+							white-space:normal !important;
+							height: 10px !important;"
+						headerText="Document Title">
+
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{caseDocument.fileName}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:inputText value="#{caseDocument.fileName}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column
+						style="width:4em !important;
+		       				white-space:normal !important; 
+		       				height: 10px !important;text-align:right;border-right:none"
+						headerText="Actions">
+						<div style="word-wrap: break-word; align: center; width: 4em;">
+
+							<p:commandLink id="delete" onclick="confirmation.show()">
+								<h:graphicImage library="images" style="border: 0;"
+									name="icon_delete.png" update="compDataList"
+									title="Click To Delete Document"
+									alt="Click To Delete Document" />
+
+								<f:setPropertyActionListener value="#{caseDocument}"
+									target="#{complainantPortalController.selectedDocForDelete}" />
+							</p:commandLink>
+						</div>
+					</p:column>
+					
+					<f:facet name="footer">
+					<div align="center">
+					
+						<p:commandLink id="confirm"
+								actionListener="#{complainantPortalController.confirm()}" 
+								ajax="false">
+								<p:button value="Confirm" icon="ui-icon-check"
+									title="Please review all documents before pressing the Confirm button" />
+							</p:commandLink>
+						<p:commandLink id="cancel"
+								actionListener="#{complainantPortalController.cancel()}" 
+								ajax="false" update="compDataList" >
+								<p:button value="Cancel" icon="ui-icon-check"
+									title="Cancel" />
+							</p:commandLink>
+					</div>
+				</f:facet>
+
+				</p:dataTable>
+
+
+			</p:panel>
+			<p:confirmDialog id="confirmDialog"
+				message="Are you sure about deleting the selected Document ?"
+				header="Initiating Deleting Process" severity="alert"
+				widgetVar="confirmation">
+				<p:commandButton id="confirm" value="Yes" ajax="false"
+					update="caseDocList,messages,pnl2"
+					onclick="confirmation.hide();blockScreen();"
+					actionListener="#{complainantPortalController.deleteDocument()}" />
+				<p:commandButton id="decline" value="No" ajax="false"
+					onclick="confirmation.hide()" type="button" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
