@@ -3,7 +3,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"      
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/templates/complainantportaltemplate.xhtml">
@@ -11,92 +11,101 @@
 	<ui:define name="content">
 		<h:form id="form">
 			<h:panelGroup>
-				<p:panel header="Confirmation"
-					style="text-align:left;">
-					
-						<br/>
-					<h:outputLabel value="Thank you for using Temporary Complainant Portal on "/>
-					
-						<h:outputText value="#{complainantPortalController.complainantdata.createdOn}">
-									<f:convertDateTime pattern="MM-dd-yyyy" />
-								</h:outputText>
-					<h:outputLabel value=".Please retain this for your records."/>
-							
-					<br/><br/>
-						
-								<h:outputLabel value="Document Submitter Email:" />
-							
-								<h:outputLabel
-									value="#{complainantPortalController.complainantdata.complainantEmail}" />
-							
-						<br/><br/>
-								<h:outputLabel value="Document Submitter First Name:" />
-							
-								<h:outputLabel
-									value="#{complainantPortalController.complainantdata.documentSubmitterFirstName}" />
+				<p:panel header="Confirmation" style="text-align:left;">
 
-                     <br/><br/>
-								<h:outputLabel value="Document Submitter Last Name:"  />
-							
-								<h:outputLabel
-									value="#{complainantPortalController.complainantdata.documentSubmitterLastName}" />
-							
-						<br/><br/>
-								<h:outputLabel value="Complainant First Name:"/>
-							
-								<h:outputLabel
-									value="#{complainantPortalController.complainantdata.complainantFirstName}" />
-						<br/><br/>
-								<h:outputLabel value="Complainant Last Name: "  />
-							
-								<h:outputLabel
-									value="#{complainantPortalController.complainantdata.complainantLastName}" />
-					<br/><br/>
-								<h:outputLabel value="Appeal Number:"  />
-							
-								<h:outputLabel
-									value="#{complainantPortalController.complainantdata.appealNumber}" />
-						<br/><br/>	
-								<h:outputLabel value="Agency Name:"  />
-							
-								<h:outputLabel
-									value="#{complainantPortalController.complainantdata.agencyName}" />
-                       <br/><br/>
-							
-								<h:outputLabel value="Agency Number:" />
-							
-								<h:outputLabel
-									value="#{complainantPortalController.complainantdata.agencyNumber}" />						
-						  
-						   <br/><br/>
-						  
-						   <p:dataTable var="caseDocument"
-					value="#{complainantPortalController.compDataList}" width="100%"
-					id="compDataList" styleClass="data" >
-					
-					 <f:facet name="header">  
-					 <div align="left">
-				            Uploaded Documents
-				     </div>
-				        </f:facet>
-					<p:column 
-						style="width: 300 !important;
+					<br />
+					<h:outputLabel
+						value="Thank you for using Temporary Complainant Portal on " />
+
+					<h:outputText
+						value="#{complainantPortalController.complainantdata.createdOn}">
+						<f:convertDateTime pattern="MM-dd-yyyy" />
+					</h:outputText>
+					<h:outputLabel value=".Please retain this for your records." />
+
+					<br />
+					<br />
+
+					<h:outputLabel value="Document Submitter Email:" />
+
+					<h:outputLabel
+						value="#{complainantPortalController.complainantdata.complainantEmail}" />
+
+					<br />
+					<br />
+					<h:outputLabel value="Document Submitter First Name:" />
+
+					<h:outputLabel
+						value="#{complainantPortalController.complainantdata.documentSubmitterFirstName}" />
+
+					<br />
+					<br />
+					<h:outputLabel value="Document Submitter Last Name:" />
+
+					<h:outputLabel
+						value="#{complainantPortalController.complainantdata.documentSubmitterLastName}" />
+
+					<br />
+					<br />
+					<h:outputLabel value="Complainant First Name:" />
+
+					<h:outputLabel
+						value="#{complainantPortalController.complainantdata.complainantFirstName}" />
+					<br />
+					<br />
+					<h:outputLabel value="Complainant Last Name: " />
+
+					<h:outputLabel
+						value="#{complainantPortalController.complainantdata.complainantLastName}" />
+					<br />
+					<br />
+					<h:outputLabel value="Appeal Number:" />
+
+					<h:outputLabel
+						value="#{complainantPortalController.complainantdata.appealNumber}" />
+					<br />
+					<br />
+					<h:outputLabel value="Agency Name:" />
+
+					<h:outputLabel
+						value="#{complainantPortalController.complainantdata.agencyName}" />
+					<br />
+					<br />
+
+					<h:outputLabel value="Agency Number:" />
+
+					<h:outputLabel
+						value="#{complainantPortalController.complainantdata.agencyNumber}" />
+
+					<br />
+					<br />
+
+					<p:dataTable var="caseDocument"
+						value="#{complainantPortalController.compDataList}" width="100%"
+						id="compDataList" styleClass="data">
+
+						<f:facet name="header">
+							<div align="left">Uploaded Documents</div>
+						</f:facet>
+						<p:column
+							style="width: 300 !important;
 							white-space:normal !important;
 							height: 10px !important;">
 
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="#{caseDocument.fileName}" />
-							</f:facet>
-							<f:facet name="input">
-								<h:inputText value="#{caseDocument.fileName}" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-				</p:dataTable>
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{caseDocument.fileName}" />
+								</f:facet>
+								<f:facet name="input">
+									<h:inputText value="#{caseDocument.fileName}" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+					</p:dataTable>
 
-						   <br/><br/>
-						   
+					<br />
+					<br />
+
 				</p:panel>
 			</h:panelGroup>
 

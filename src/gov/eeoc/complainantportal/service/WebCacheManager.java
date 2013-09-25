@@ -1,11 +1,9 @@
 package gov.eeoc.complainantportal.service;
 
 import java.util.concurrent.TimeUnit;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
-
 import org.apache.commons.lang3.StringUtils;
 import org.infinispan.Cache;
 import org.infinispan.configuration.cache.Configuration;
@@ -35,7 +33,6 @@ public class WebCacheManager {
 		manager = new DefaultCacheManager();
 		manager.defineConfiguration("complainanat-email-token-cache-config", config);
 		cache = manager.getCache();
-
 	}
 	
 	@PreDestroy
@@ -46,7 +43,7 @@ public class WebCacheManager {
 	}
 
 	/*
-	 * This method generates six characters random alapha-numeric token
+	 * This method generates six characters random alpha-numeric token
 	 */
 	
 	public void addToken(String email, String token) {

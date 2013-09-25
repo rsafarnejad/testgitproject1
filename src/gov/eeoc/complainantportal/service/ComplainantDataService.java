@@ -2,18 +2,14 @@ package gov.eeoc.complainantportal.service;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -42,8 +38,7 @@ public class ComplainantDataService {
 	@Inject
 	private AlfrescoAccessManager accessManager;
 
-	private final Logger log = LoggerFactory
-			.getLogger(ComplainantDataService.class);
+	private final Logger log = LoggerFactory.getLogger(ComplainantDataService.class);
 
 	private final String completeFolderPath = "/EEOC/Applications/TempComplaintFolder";
 	
@@ -51,14 +46,12 @@ public class ComplainantDataService {
 	
 	@PostConstruct
 	private void init() {
-		alfrescoTempFolderId = accessManager
-				.getFolderIdByCompleteName(completeFolderPath);
+		alfrescoTempFolderId = accessManager.getFolderIdByCompleteName(completeFolderPath);
 	}
 	
 	public String generateToken() {
 		return RandomStringUtils.randomAlphanumeric(TOKEN_LENGTH);
 	}
-
 
 	public long addComplaintantData(ComplainantData data) {
 		ComplainantData insertedObject = em.merge(data);
@@ -72,8 +65,7 @@ public class ComplainantDataService {
 	public boolean addDocument(Long complaintDataId, String documentType,
 			DocumentDetails documentDetail) {
 		String alfrescoId = null;
-		alfrescoId = accessManager.addDocument(alfrescoTempFolderId,
-				documentDetail);
+		alfrescoId = accessManager.addDocument(alfrescoTempFolderId,documentDetail);
 		ComplainantData data = em.find(ComplainantData.class, complaintDataId);
 		if (data != null) {
 			if (data.getAlfrescoId() == null) {
@@ -120,8 +112,6 @@ public class ComplainantDataService {
 		return randomQuestionBuilder.generateChallengeQuestionAnswer();
 	}
 
-	
-
 	public List<DocumentDetails> getDocumentsByComplaintId(Long complaintId) {
 		Query query = em.createNamedQuery("ComplainantData.findByPkOrRefId");
 		query.setParameter("complainantDataId", complaintId);
@@ -133,11 +123,9 @@ public class ComplainantDataService {
 			docDetail.setDocumentNodeId(data.getAlfrescoId());
 			docDetail.setFileName(data.getFileName());
 			result.add(docDetail);
-		}
-		
+		}	
 		return result;
 	}
-
 		
 	public DocumentContent getDocumentContentByAlfrecoId(String alfrescoId) {
 		return accessManager.getDocumentContent(alfrescoId);
@@ -158,11 +146,9 @@ public class ComplainantDataService {
 			query.setParameter("alfrescoId", documentId);
 			int numOfUpdates = query.executeUpdate();
 			log.info("Resetting AlfrescoId : {}", numOfUpdates);
-		}
-			
+		}	
 		return accessManager.deleteDocument(documentId);
-	}
-	
+	}	
 	
 	public StreamedContent downloadDocument(String alfrescoId){
 		DocumentContent dc = accessManager.getDocumentContent(alfrescoId);
@@ -174,6 +160,7 @@ public class ComplainantDataService {
 		}
 		return null;
 	}
+	
 	private ComplainantData generateNewComplaintData(ComplainantData data) {
 		ComplainantData record = new ComplainantData();
 		record.setRefrenceId(data.getComplainantDataId());
@@ -191,6 +178,4 @@ public class ComplainantDataService {
 		
 		return record;
 	}
-
-	
 }

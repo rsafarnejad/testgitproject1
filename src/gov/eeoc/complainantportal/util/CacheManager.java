@@ -1,23 +1,15 @@
 package gov.eeoc.complainantportal.util;
 
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.ejb.Local;
-import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,20 +38,15 @@ public class CacheManager {
 		configProp = util.getPropertiesFromClasspath(SystemUtil.CONFIG_PROPERTY_FILE);
 	}
 	
-	
-
     public CacheManager() {
         // TODO Auto-generated constructor stub
     }
-    
-    
     
     public String getValue(String key){
     //	return configProp.getProperty(key); commented and will be removed
     	return util.getValueByProperyKey(key);
     }
-    
-    
+       
     public String getDescriptionByCode(String code){
     	if(codeDescriptionMap == null){
     		populateCodeDescriptionMap();
@@ -118,10 +105,6 @@ public class CacheManager {
     public String getAlfrescoServiceURL(){
     	SystemUtil util = new SystemUtil();
     	try {
-		/* commented and will be removed -- reading from config properties
-    		Properties prop = util.getPropertiesFromClasspath(SystemUtil.CONFIG_PROPERTY_FILE);
-			return prop.getProperty(SystemUtil.ALFRESCO_URL_PROP);
-			*/
     		return util.getValueByProperyKey(Const.ALFRESCO_SERVICE_URL);
 		} catch (Exception e) {
 			log.error("Error retrieving propery for Alfresco URL {} ", e.toString());
@@ -137,9 +120,9 @@ public class CacheManager {
     		String code = (String) obj[0];
     		String description = (String) obj[1];
     		codeDescriptionMap.put(code, description);
-    	}
-    	
+    	}  	
     }
+    
     private Map<String, String> getCodeAndDescription(String code){
 	    Query query = em.createNativeQuery("SELECT CODE, DESCRIPTION FROM SHARED_CODE WHERE DOMAIN = 'ACO' and CODE = ? ").setParameter(1, code);
 	    Map<String, String> map = new HashMap <String, String> ();

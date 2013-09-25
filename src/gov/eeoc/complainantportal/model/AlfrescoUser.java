@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class AlfrescoUser implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String userName;
@@ -16,7 +13,6 @@ public class AlfrescoUser implements Serializable {
 	private String lastName;
 	private String email;
 	private String orgId = "EEOC_INTERNAL";
-	
 	
 	public String getUserName() {
 		return userName;
@@ -36,6 +32,12 @@ public class AlfrescoUser implements Serializable {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+	public String getMiddleName() {
+		return middleName;
+	}
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
 	public String getLastName() {
 		return lastName;
 	}
@@ -54,13 +56,4 @@ public class AlfrescoUser implements Serializable {
 	public void setOrgId(String orgId) {
 		this.orgId = orgId;
 	}
-	public String getMiddleName() {
-		return middleName;
-	}
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-	
-	
-
 }

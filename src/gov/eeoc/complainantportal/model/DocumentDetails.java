@@ -6,9 +6,6 @@ import java.util.Date;
 
 public class DocumentDetails extends DocumentContent implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String documentName;
@@ -22,18 +19,34 @@ public class DocumentDetails extends DocumentContent implements Serializable {
 	private String title;
 	private boolean documentOwner;
 	
-	// following attributes added for public complaintant portal
+	// following attributes added for public Complainant portal
 	private String appealNumber;
 	private String complaintId;
-	
-	
 	private final static DateFormat defaultDf = DateFormat.getDateInstance();
 	
-	public String getTitle() {
-		return title;
+	public String getDocumentName() {
+		return documentName;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setDocumentName(String documentName) {
+		this.documentName = documentName;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public String getCreatedDateStr() {
+		return createdDateStr;
+	}
+	public void setCreatedDateStr(String createdDateStr) {
+		this.createdDateStr = createdDateStr;
+	}
+	public String getDocumentNodeId() {
+		return documentNodeId;
+	}
+	public void setDocumentNodeId(String documentNode) {
+		this.documentNodeId = documentNode;
 	}
 	public String getTabType() {
 		return tabType;
@@ -53,26 +66,6 @@ public class DocumentDetails extends DocumentContent implements Serializable {
 	public void setRelatedDate(Date relatedDate) {
 		this.relatedDate = relatedDate;
 	}
-	public String getDocumentName() {
-		return documentName;
-	}
-	public void setDocumentName(String documentName) {
-		this.documentName = documentName;
-	}
-	public String getCreatedDateStr() {
-		return createdDateStr;
-	}
-	public void setCreatedDateStr(String createdDateStr) {
-		this.createdDateStr = createdDateStr;
-	}
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	
-
 	public String getRelatedDateStr() {
 		if(relatedDate != null){
 			return defaultDf.format(relatedDate);
@@ -82,12 +75,11 @@ public class DocumentDetails extends DocumentContent implements Serializable {
 	public void setRelatedDateStr(String relatedDateStr) {
 		this.relatedDateStr = relatedDateStr;
 	}
-	
-	public String getDocumentNodeId() {
-		return documentNodeId;
+	public String getTitle() {
+		return title;
 	}
-	public void setDocumentNodeId(String documentNode) {
-		this.documentNodeId = documentNode;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public boolean isDocumentOwner() {
 		return documentOwner;

@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class NotesDetails implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String createdBy;
@@ -35,8 +32,6 @@ public class NotesDetails implements Serializable {
 	public String toString() {
 		return "NotesDetails [createdBy=" + createdBy + ", createdDateStr="
 				+ createdDateStr + ", notes=" + notes + "]";
-	}
-	
-	
+	}	
 }
 

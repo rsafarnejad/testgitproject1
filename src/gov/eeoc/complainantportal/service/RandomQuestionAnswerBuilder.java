@@ -5,12 +5,10 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class RandomQuestionAnswerBuilder {
 	
-		
 	public Map<String, String> generateChallengeQuestionAnswer(){
 		int questionNumberPosition = pickRandomQuestionNumber();
 		if(questionNumberPosition == 0){
@@ -35,8 +33,7 @@ public class RandomQuestionAnswerBuilder {
 			return question9();
 		}else {
 			return question10();
-		}
-		
+		}		
 	}
 	
 	private Map<String, String> question10() {
@@ -49,7 +46,6 @@ public class RandomQuestionAnswerBuilder {
 		return map;
 	}
 
-	
 	private Map<String, String> question9() {
 		int digit1 = generateSingleDigit();
 		int digit2 = digit1 + 2;
@@ -72,8 +68,6 @@ public class RandomQuestionAnswerBuilder {
 		map.put(question, String.valueOf(answer));
 		return map;
 	}
-	
-
 
 	private Map<String, String> question7() {
 		String question = "What day is tomorrow?";
@@ -84,11 +78,8 @@ public class RandomQuestionAnswerBuilder {
 		map.put(question, cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US));
 		return map;
 	}
-
-
     
-	private Map<String, String> question6() {
-		
+	private Map<String, String> question6() {	
 		String question = "What is the current year?";
 		Calendar cal = new GregorianCalendar();
 		Map<String, String> map = new HashMap<String, String> (1);
@@ -96,8 +87,7 @@ public class RandomQuestionAnswerBuilder {
 		return map;
 	}
 
-    private Map<String, String> question5() {
-	
+    private Map<String, String> question5() {	
 	String question = "What date is today?";
 	Calendar cal = new GregorianCalendar();
 	Map<String, String> map = new HashMap<String, String> (1);
@@ -105,15 +95,13 @@ public class RandomQuestionAnswerBuilder {
 	return map;
 }
 	
-	private Map<String, String> question4() {
-		
+	private Map<String, String> question4() {	
 		String question = "What day is today?";
 		Calendar cal = new GregorianCalendar();
 		Map<String, String> map = new HashMap<String, String> (1);
 		map.put(question,cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US));
 		return map;
 	}
-
 
 	private Map<String, String> question2() {
 		int digit1 = generateSingleDigit();
@@ -188,9 +176,7 @@ public class RandomQuestionAnswerBuilder {
 	}
 
 	public static void main(String[] args) {
-		RandomQuestionAnswerBuilder builder = new RandomQuestionAnswerBuilder();
-		
-		
+		RandomQuestionAnswerBuilder builder = new RandomQuestionAnswerBuilder();	
 		System.out.println(builder.question0());
 		System.out.println(builder.question1());
 		System.out.println(builder.question2());

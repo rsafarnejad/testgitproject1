@@ -1,17 +1,12 @@
 package gov.eeoc.complainantportal.controller;
 
-
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -22,10 +17,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import gov.eeoc.complainantportal.service.ComplainantDataService;
 import gov.eeoc.complainantportal.service.WebCacheManager;
@@ -149,7 +141,6 @@ public class UserRegistrationController implements Serializable{
 				
 			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 			HttpServletRequest request = (HttpServletRequest)ec.getRequest();
-			HttpServletResponse response = (HttpServletResponse)ec.getResponse();
 			FacesContext.getCurrentInstance().getExternalContext().redirect("emailconfirmation.jsf");
 			request.getSession().invalidate();
 			
@@ -172,7 +163,6 @@ public class UserRegistrationController implements Serializable{
 		
 	}
 	
-
 	private void sendEmail(String email, String from, String subject,String content) throws Exception {
 
 		String host = Const.SMTP_SERVER;
@@ -200,11 +190,5 @@ public class UserRegistrationController implements Serializable{
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 		}
-	}
-
-
-	private ServletRequest getSession() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

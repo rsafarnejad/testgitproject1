@@ -7,13 +7,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
 import org.apache.commons.io.FilenameUtils;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -47,8 +44,6 @@ public class ComplainantPortalController implements Serializable {
 	private DocumentDetails selectedDocForDelete;
 	private boolean disable = true;
 	private String token;
-	//private String documentSubmitterEmail;
-	
 
 	public ComplainantData getComplainantdata() {
 		if (complainantdata == null) {
@@ -133,14 +128,6 @@ public class ComplainantPortalController implements Serializable {
 		this.token = token;
 	}
 	
-/*	public String getDocumentSubmitterEmail() {
-		return documentSubmitterEmail;
-	}
-
-	public void setDocumentSubmitterEmail(String documentSubmitterEmail) {
-		this.documentSubmitterEmail = documentSubmitterEmail;
-	}*/
-
 	public ComplainantPortalController() {
 
 	}
@@ -185,6 +172,7 @@ public class ComplainantPortalController implements Serializable {
 			FacesMessage msg = new FacesMessage("Failed : Please select a file to upload. ");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
+			//File size should be less than 25MB
 			if(this.file.getSize()<26214400){
 			try {
 				fileName = FilenameUtils.getName(this.file.getFileName());
@@ -296,6 +284,8 @@ public class ComplainantPortalController implements Serializable {
 			setCompDataList(null);
 			setToken("");
 			setDocumentType("");
+			setDisable(true);
+			setShowUpload(false);
 		}else
 			System.out.println("Delete failed");
 	}

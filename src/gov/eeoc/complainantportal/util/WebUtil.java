@@ -1,17 +1,14 @@
 package gov.eeoc.complainantportal.util;
 
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;

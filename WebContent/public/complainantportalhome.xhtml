@@ -9,28 +9,26 @@
 	template="/templates/complainantportaltemplate.xhtml">
 
 	<ui:define name="content">
-     
+
 		<h:form id="form" prependid="false" enctype="multipart/form-data">
 			<p:messages id="messages" />
 			<p:panel id="blockPn2" header="Complainant Portal"
 				style="margin-bottom: 10px;">
 				<div align="center" style="margin-top: 30px;">
-					<h:outputLabel 
-						value="Welcome to the EEOC Complainant Portal.You can upload your complaint related documents here.If you 
-											already have a passcode,please"
-											/>
-											<h:commandLink onclick="window.open('../public/complainantportal.xhtml');return false;" target="_blank">
-											<h:outputLabel style="color:#0000FF;" value="click here"/>
-											</h:commandLink> 
-												<h:outputLabel value="If 
-		you do not have a passcode,please fill the below details and hit the Send email button.The system will generate a passcode
-											for you and send it to you via email.
-												" />
-			
+					<h:outputLabel value="Welcome to the EEOC Complainant Portal.You can upload your complaint related documents here.If 
+					you already have a passcode,please" />
+					<h:commandLink
+						onclick="window.open('../public/complainantportal.xhtml');return false;"
+						target="_blank">
+						<h:outputLabel style="color:#0000FF;" value="click here" />
+					</h:commandLink>
+					<h:outputLabel
+						value="If you do not have a passcode,please fill the below details and hit the Send email button.The system will 
+						generate a passcode for you and send it to you via email." />
+
 					<h:panelGrid columns="3"
 						columnClasses="firstBlockCol,required1,secondBlockCol"
 						style="width: 100%;margin-top: 30px;">
-
 						<h:outputText value="Document Submitter Email: "
 							style="font-weight: bold;" />
 						<h:outputText value="*" title="Required field" />
@@ -44,22 +42,23 @@
 							<f:validateRegex
 								pattern="^\s*[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]\s*$" />
 						</p:inputText>
-						
-						<h:outputText value="#{userRegistrationController.securityQuestion}" style="font-weight: bold;" />
-							<h:outputText value="*" title="Required field" />
-							<p:inputText
-								value="#{userRegistrationController.userAnswer}"
-								id="answer" label="answer" title="Answer"
-								size="24" required="true"
-								requiredMessage=" Answer is required">
-							</p:inputText>
+
+						<h:outputText
+							value="#{userRegistrationController.securityQuestion}"
+							style="font-weight: bold;" />
+						<h:outputText value="*" title="Required field" />
+						<p:inputText value="#{userRegistrationController.userAnswer}"
+							id="answer" label="answer" title="Answer" size="24"
+							required="true" requiredMessage=" Answer is required">
+						</p:inputText>
 
 					</h:panelGrid>
 					<div align="right">
 						<p:commandLink id="submit"
 							actionListener="#{userRegistrationController.sendEmail()}"
-							 ajax="false">
-							<p:button value="Send email" icon="ui-icon-check" title="Send email" />
+							ajax="false">
+							<p:button value="Send email" icon="ui-icon-check"
+								title="Send email" />
 						</p:commandLink>
 					</div>
 

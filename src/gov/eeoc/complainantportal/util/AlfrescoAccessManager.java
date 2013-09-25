@@ -47,13 +47,10 @@ import gov.eeoc.complainantportal.model.NotesDetails;
 @Singleton
 public class AlfrescoAccessManager {
 
-	private final Logger log = LoggerFactory
-			.getLogger(AlfrescoAccessManager.class);
+	private final Logger log = LoggerFactory.getLogger(AlfrescoAccessManager.class);
 
 	private final static String FORUM_NAME_APPENDER = " case forum";
-
 	private final static String TOPIC_NAME_APPENDER = " case topic";
-
 	private final static String PROP_TAB_TYPE = "my:tabType";
 	private final static String PROP_SUB_CAT_TYPE = "my:subCategory";
 	private final static String PROP_REL_DATE = "my:relatedDate";
@@ -75,16 +72,12 @@ public class AlfrescoAccessManager {
 	private Properties properties;
 	private String url;
 
-	// private final static DateFormat dateFormat = new
-	// SimpleDateFormat().getDateInstance(DateFormat.LONG);
-
 	@PostConstruct
 	public void init() {
 		sessionFactory = SessionFactoryImpl.newInstance();
 		url = cacheManager.getAlfrescoServiceURL();
 		if (sysUtil != null) {
-			properties = sysUtil
-					.getPropertiesFromClasspath(SystemUtil.CONFIG_PROPERTY_FILE);
+			properties = sysUtil.getPropertiesFromClasspath(SystemUtil.CONFIG_PROPERTY_FILE);
 		}
 	}
 
@@ -120,13 +113,9 @@ public class AlfrescoAccessManager {
 		return caseFolder.getId();
 	}
 
-	public String createFolder(Session session, String folderName,
-			boolean isCaseFolder) {
-		// String baseFolderPath =
-		// cacheManager.getValue("alfresco.private.folder.path"); -- commented
-		// and will be removed
-		String baseFolderPath = cacheManager
-				.getValue(Const.ALFRESCO_FOLDER_PATH);
+	public String createFolder(Session session, String folderName,boolean isCaseFolder) {
+
+		String baseFolderPath = cacheManager.getValue(Const.ALFRESCO_FOLDER_PATH);
 		String systemicCaseFolder = baseFolderPath + "/Systemic/";
 		String chargeFolder = baseFolderPath + "/Charges/";
 		String completeFolderName = null;
@@ -150,7 +139,6 @@ public class AlfrescoAccessManager {
 		props.put(PropertyIds.NAME, folderName);
 		Folder targetFolder = baseFolder.createFolder(props);
 		return targetFolder.getId();
-
 	}
 
 	public boolean updateFolderName(String origName, String newName) {
@@ -192,45 +180,7 @@ public class AlfrescoAccessManager {
 		return id;
 	}
 
-	/*
-	 * public boolean addDocument(Session session, String folderId, String
-	 * newDocName, String mimeType, byte[] data) { // if(session == null){ //
-	 * session = getAdminSession(); // } Map<String, String> props = new
-	 * HashMap<String, String>(); props.put(PropertyIds.OBJECT_TYPE_ID,
-	 * "cmis:document"); props.put(PropertyIds.NAME, newDocName); ContentStream
-	 * contentStream = session.getObjectFactory()
-	 * .createContentStream(newDocName, data.length, mimeType, new
-	 * ByteArrayInputStream(data)); Folder target = (Folder)
-	 * session.getObject(folderId); Document newDocument =
-	 * target.createDocument(props, contentStream, VersioningState.MAJOR); if
-	 * (newDocument != null) { return newDocument.getId() != null ? true :
-	 * false; }
-	 * 
-	 * return false; }
-	 */
-
-	/*
-	 * public boolean addDocument(Session session, String folderId, String
-	 * newDocName, String mimeType, InputStream ins, long fileSize) { boolean
-	 * isSucessful = false; Map<String, String> props = new HashMap<String,
-	 * String>(); props.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
-	 * props.put(PropertyIds.NAME, newDocName); ContentStream contentStream =
-	 * session.getObjectFactory() .createContentStream(newDocName, fileSize,
-	 * mimeType, ins); Folder target = (Folder) session.getObject(folderId);
-	 * Document existingDoc = getExistingDocument2(session, target, newDocName);
-	 * if( existingDoc == null) { Document newDocument =
-	 * target.createDocument(props, contentStream, VersioningState.MAJOR);
-	 * if(newDocument != null){ isSucessful = true; } } else { // update
-	 * document contentStream =
-	 * session.getObjectFactory().createContentStream(newDocName, fileSize,
-	 * mimeType, ins); existingDoc.setContentStream(contentStream, true);
-	 * isSucessful = true; }
-	 * 
-	 * return isSucessful; }
-	 */
-
-	private Document getExistingDocument(Session session, Folder target,
-			String newDocName) {
+	private Document getExistingDocument(Session session, Folder target,String newDocName) {
 		// SELECT cmis:objectId from cmis:document where
 		// in_folder('workspace://SpacesStore/3d1e69fb-ca98-4112-a27d-578e1b2f3cd7')
 		// and cmis:name = 'Tesdt.txt'
@@ -383,44 +333,6 @@ public class AlfrescoAccessManager {
 		session.clear();
 		return details;
 	}
-
-	/*
-	public List<DocumentDetails> getDocumentIdByMetaData(String folderId,
-			String metaDataType, String value) {
-
-		StringBuilder builder = new StringBuilder(
-				"select cmis:objectId from my:sop where ").append(metaDataType)
-				.append(" = '").append(value).append("'")
-				.append(" and in_tree('").append(folderId).append("')");
-		log.info("CMIS Query : {} ", builder.toString());
-		Session session = getAdminSession();
-		ItemIterable<QueryResult> rows = session.query(builder.toString(),
-				false);
-		log.info("Total Number of results = {} ", rows.getTotalNumItems());
-		List<DocumentDetails> details = new ArrayList<DocumentDetails>();
-		for (QueryResult row : rows) {
-			List<PropertyData<?>> properties = row.getProperties();
-			for (PropertyData<?> property : properties) {
-				String objectId = (String) property.getFirstValue();
-				Document document = (Document) session.getObject(objectId);
-				DocumentDetails detail = new DocumentDetails();
-				detail.setFileName(document.getContentStreamFileName());
-				detail.setDocumentName(document.getContentStreamFileName());
-				detail.setCreatedDateStr(DateFormat.getDateTimeInstance(
-						DateFormat.MEDIUM, DateFormat.SHORT).format(
-						document.getCreationDate().getTime()));
-				detail.setFileLength(document.getContentStreamLength());
-				detail.setMimeType(document.getContentStreamMimeType());
-				detail.setDocumentNodeId(document.getId());
-				details.add(detail);
-			}
-
-		}
-		session.clear();
-		return details;
-	}
-	
-	*/
 
 	public boolean updateDocument(Session session, String folderNodeId,
 			DocumentDetails dc) {
@@ -653,18 +565,6 @@ public class AlfrescoAccessManager {
 		return newFolder;
 	}
 
-	/*
-	 * private String getDocumentId(String folderId, String fileName){ Session
-	 * session = getAdminSession(); String query =
-	 * "SELECT cmis:objectId FROM cmis:document WHERE IN_TREE('" + folderId +
-	 * "')" + " and cmis:name = '" + fileName + "'"; ItemIterable<QueryResult>
-	 * rows = session.query(query, false); String objectId = null; for
-	 * (QueryResult row : rows){ List<PropertyData<?>> properties =
-	 * row.getProperties(); for (PropertyData<?> property : properties){
-	 * objectId = (String) property.getFirstValue(); break; } } return objectId;
-	 * }
-	 */
-
 	public String getFolderIdByFolderName(String folderName) {
 		Session session = getAdminSession();
 		Folder folder = this.getFolderByName(session, folderName);
@@ -828,15 +728,9 @@ public class AlfrescoAccessManager {
 	}
 
 	private Session getAdminSession() {
-		/*
-		 * String adminUserId = properties.getProperty("alfresco.admin.user");
-		 * String adminPassword =
-		 * properties.getProperty("alfresco.admin.password"); -- commented and
-		 * will be removed
-		 */
+	
 		String adminUserId = sysUtil.getValueByProperyKey(Const.ALFRESCO_USER);
-		String adminPassword = sysUtil
-				.getValueByProperyKey(Const.ALFRESCO_ADMIN_PWD);
+		String adminPassword = sysUtil.getValueByProperyKey(Const.ALFRESCO_ADMIN_PWD);
 		return this.createSession(adminUserId, adminPassword);
 
 	}
