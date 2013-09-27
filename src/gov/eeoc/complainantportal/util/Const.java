@@ -14,7 +14,7 @@ public interface Const {
 
 	//Java Email Related
 	
-	String FROM_EMAIL="complainantportal@eeoc.gov";
+	String FROM_EMAIL="ComplainantPortal@eeoc.gov";
 	
 	String SMTP_SERVER="10.9.24.141";
 	

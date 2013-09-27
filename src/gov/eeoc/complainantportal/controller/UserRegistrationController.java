@@ -159,7 +159,7 @@ public class UserRegistrationController implements Serializable{
 					
 		} catch (Exception e) {
 			
-			log.debug("Error while sending email to the director");
+			log.debug("Error while sending email: ");
 			log.debug(documentSubmitterEmail);
 			e.printStackTrace();
 
