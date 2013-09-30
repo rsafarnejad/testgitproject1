@@ -1,17 +1,13 @@
 package gov.eeoc.complainantportal.controller;
 
-
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -22,10 +18,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.eeoc.complainantportal.service.ComplainantDataService;
@@ -95,7 +88,7 @@ public class UserRegistrationController implements Serializable{
 		questionAnswer = complainantDataService.generateChallengeQuestionAnswer();
 		if (questionAnswer.size() == 1) {
 			for (Map.Entry<String, String> entry : questionAnswer.entrySet()) {
-				log.debug("Key : " + entry.getKey() + " Value : "
+				System.out.println("Key : " + entry.getKey() + " Value : "
 						+ entry.getValue());
 				securityQuestion = entry.getKey();
 				securityAnswer = entry.getValue();
@@ -109,14 +102,14 @@ public class UserRegistrationController implements Serializable{
 	 */
 	
 	public void sendEmail(){
-		log.debug("sendEmail()..start");
+		System.out.println("sendEmail()..start");
 		boolean isValidAnswer = false;
 		
 		isValidAnswer = getSecurityAnswer().equalsIgnoreCase(getUserAnswer());
 		if (isValidAnswer == true) {
-			log.debug("Challenge question answered correctly");
+			System.out.println("Challenge question answered correctly");
 		String token = complainantDataService.generateToken();
-		log.debug("Token :" + token);		
+		System.out.println("Token :" + token);		
 		webCacheManager.addToken(getDocumentSubmitterEmail().toLowerCase(), token);
 		try {
 			
@@ -152,15 +145,14 @@ public class UserRegistrationController implements Serializable{
 				
 			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 			HttpServletRequest request = (HttpServletRequest)ec.getRequest();
-			HttpServletResponse response = (HttpServletResponse)ec.getResponse();
 			FacesContext.getCurrentInstance().getExternalContext().redirect("emailconfirmation.jsf");
 			request.getSession().invalidate();
 			
 					
 		} catch (Exception e) {
 			
-			log.debug("Error while sending email: ");
-			log.debug(documentSubmitterEmail);
+			System.out.println("Error while sending email: ");
+			System.out.println(documentSubmitterEmail);
 			e.printStackTrace();
 
 		}
@@ -199,15 +191,9 @@ public class UserRegistrationController implements Serializable{
 
 			Transport.send(message);
 			
-			log.debug("Security Token email send successfully:"+ email);
+			System.out.println("Security Token email send successfully:"+ email);
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 		}
-	}
-
-
-	private ServletRequest getSession() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

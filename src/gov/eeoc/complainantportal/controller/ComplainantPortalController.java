@@ -7,14 +7,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.io.FilenameUtils;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -48,7 +46,7 @@ public class ComplainantPortalController implements Serializable {
 	private DocumentDetails selectedDocForDelete;
 	private boolean disable = true;
 	private String token;
-	//private String documentSubmitterEmail;
+	
 	static final Logger log = LoggerFactory.getLogger(ComplainantPortalController.class);
 	
 	public ComplainantData getComplainantdata() {
@@ -133,14 +131,6 @@ public class ComplainantPortalController implements Serializable {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
-/*	public String getDocumentSubmitterEmail() {
-		return documentSubmitterEmail;
-	}
-
-	public void setDocumentSubmitterEmail(String documentSubmitterEmail) {
-		this.documentSubmitterEmail = documentSubmitterEmail;
-	}*/
 
 	public ComplainantPortalController() {
 
@@ -156,10 +146,10 @@ public class ComplainantPortalController implements Serializable {
 		 isValidToken = webCacheManager.isValidToken(this.complainantdata.getComplainantEmail().toLowerCase(), token);
 		if (isValidToken) {
 			setDisable(false);
-			log.debug("Submission in Progress");
-			log.debug("Trying to insert record");
+			System.out.println("Submission in Progress");
+			System.out.println("Trying to insert record");
 			id = complainantDataService.addComplaintantData(this.complainantdata);
-			log.debug("The long value is id:" + id);
+			System.out.println("The long value is id:" + id);
 			if (id == 0) {
 				FacesMessage msg = new FacesMessage("Please try after some time.");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -202,11 +192,11 @@ public class ComplainantPortalController implements Serializable {
 				this.complainantdata.setDocumentType(getDocumentType());
 
 				uploaded = complainantDataService.addDocument(id,this.complainantdata.getDocumentType(), dc);
-				log.debug("Id value to Alfresco :" + id);
+				System.out.println("Id value to Alfresco :" + id);
 
 				if (uploaded) {
 					this.compDataList = complainantDataService.getDocumentsByComplaintId(id);
-					log.debug("size of the list:"+ compDataList.size());
+					System.out.println("size of the list:"+ compDataList.size());
 					WebUtil.SetSessionVariable(COMP_DATA_LIST, compDataList);
 					FacesMessage msg = new FacesMessage("Success! "+ this.file.getFileName() + " is uploaded.");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -248,13 +238,13 @@ public class ComplainantPortalController implements Serializable {
 	 */
 
 	public void deleteDocument() throws IOException {
-		log.debug("deleteDocument()..start");
+		System.out.println("deleteDocument()..start");
 		DocumentDetails docDetail = this.selectedDocForDelete;
 		boolean deleted = false;
 		deleted = complainantDataService.deleteDocument(docDetail.getDocumentNodeId());
 
 		if (deleted) {
-			log.debug("File deletion Success");
+			System.out.println("File deletion Success");
 			this.compDataList = complainantDataService
 					.getDocumentsByComplaintId(id);
 			//FacesMessage msg = new FacesMessage("Success!"+ docDetail.getDocumentName() + " is deleted.");
@@ -262,9 +252,8 @@ public class ComplainantPortalController implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		} else {
-			log.debug("File deletion Failed");
-			// FacesMessage msg = new FacesMessage("Failed "+
-			// docDetail.getDocumentName() + " is not deleted.");
+			System.out.println("File deletion Failed");
+			// FacesMessage msg = new FacesMessage("Failed "+	// docDetail.getDocumentName() + " is not deleted.");
 			FacesMessage msg = new FacesMessage("Failed! The selected file is not deleted.");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
@@ -275,8 +264,8 @@ public class ComplainantPortalController implements Serializable {
 	 * 
 	 */
 	public void confirm() throws IOException {
-		log.debug("confirm()..start");
-		log.debug("Inside the confirmation button");
+		System.out.println("confirm()..start");
+		System.out.println("Inside the confirmation button");
 		FacesContext.getCurrentInstance().getExternalContext()
 				.redirect("confirmation.jsf");
 
@@ -287,18 +276,17 @@ public class ComplainantPortalController implements Serializable {
 	 * 
 	 */
 	public void cancel() {
-		log.debug("cancel()..start");
+		System.out.println("cancel()..start");
 		boolean deleted=false;
 		deleted=complainantDataService.delete(id);
 		if(deleted){
-			log.debug("Delete success");
+			System.out.println("Delete success");
 			setComplainantdata(null);
-			//setDocumentSubmitterEmail("");
 			setCompDataList(null);
 			setToken("");
 			setDocumentType("");
 		}else
-			log.debug("Delete failed");
+			System.out.println("Delete failed");
 	}
 	
 
