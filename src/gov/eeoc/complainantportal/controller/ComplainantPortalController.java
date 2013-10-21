@@ -46,7 +46,8 @@ public class ComplainantPortalController implements Serializable {
 	private DocumentDetails selectedDocForDelete;
 	private boolean disable = true;
 	private String token;
-	
+	private boolean value;
+
 	static final Logger log = LoggerFactory.getLogger(ComplainantPortalController.class);
 	
 	public ComplainantData getComplainantdata() {
@@ -131,7 +132,15 @@ public class ComplainantPortalController implements Serializable {
 	public void setToken(String token) {
 		this.token = token;
 	}
+   
+	public boolean isValue() {
+		return value;
+	}
 
+	public void setValue(boolean value) {
+		this.value = value;
+	}
+	
 	public ComplainantPortalController() {
 
 	}
@@ -198,7 +207,7 @@ public class ComplainantPortalController implements Serializable {
 					this.compDataList = complainantDataService.getDocumentsByComplaintId(id);
 					System.out.println("size of the list:"+ compDataList.size());
 					WebUtil.SetSessionVariable(COMP_DATA_LIST, compDataList);
-					FacesMessage msg = new FacesMessage("Success! "+ this.file.getFileName() + " is uploaded.");
+					FacesMessage msg = new FacesMessage("The file entitled "+ this.file.getFileName() + " has been successfully uploaded.");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
 				} else {
 					FacesMessage msg = new FacesMessage("Failed! "+ this.file.getFileName() + " is not uploaded.");

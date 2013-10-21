@@ -15,7 +15,7 @@
 			<p:panel id="blockPn2" header="Complainant Portal"
 				style="margin-bottom: 10px;">
 				<div align="center" style="margin-top: 30px;">
-					<h:outputLabel value="Welcome to the EEOC Complainant Portal.You can upload your complaint related documents here.If 
+					<h:outputLabel value="Welcome to the EEOC Complainant Portal.You can upload your appeal-related documents here.If 
 					you already have a passcode,please" />
 					<h:commandLink
 						onclick="window.open('../public/complainantportal.xhtml');return false;"
@@ -29,16 +29,16 @@
 					<h:panelGrid columns="3"
 						columnClasses="firstBlockCol,required1,secondBlockCol"
 						style="width: 100%;margin-top: 30px;">
-						<h:outputText value="Document Submitter Email: "
+						<h:outputText value="Enter your email address: "
 							style="font-weight: bold;" />
 						<h:outputText value="*" title="Required field" />
 						<p:inputText
 							value="#{userRegistrationController.documentSubmitterEmail}"
 							id="documentSubmitterEmail" label="documentSubmitterEmail"
-							title="Document Submitter Email" maxlength="320" size="50"
+							title="Enter your email address" maxlength="320" size="50"
 							required="true"
-							requiredMessage=" Document Submitter Email is required"
-							validatorMessage="Document Submitter Email is not valid">
+							requiredMessage="Email address is required"
+							validatorMessage="Email address is not valid">
 							<f:validateRegex
 								pattern="^\s*[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]\s*$" />
 						</p:inputText>

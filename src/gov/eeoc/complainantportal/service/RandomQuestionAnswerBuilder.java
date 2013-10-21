@@ -37,7 +37,7 @@ public class RandomQuestionAnswerBuilder {
 	}
 	
 	private Map<String, String> question10() {
-		String question = "What date is tomorrow?";
+		String question = "What date of the month is tomorrow?(Enter the numeric value eg.18)";
 		Calendar cal = new GregorianCalendar();
 		int day = cal.get(Calendar.DAY_OF_MONTH);
 		cal.set(Calendar.DAY_OF_MONTH, day + 1);
@@ -70,7 +70,7 @@ public class RandomQuestionAnswerBuilder {
 	}
 
 	private Map<String, String> question7() {
-		String question = "What day is tomorrow?";
+		String question = "What day of the week is tomorrow?";
 		Calendar cal = new GregorianCalendar();
 		int day = cal.get(Calendar.DAY_OF_WEEK);
 		cal.set(Calendar.DAY_OF_WEEK, day + 1);
@@ -88,7 +88,7 @@ public class RandomQuestionAnswerBuilder {
 	}
 
     private Map<String, String> question5() {	
-	String question = "What date is today?";
+	String question = "What date of the month is today?(Enter the numeric value eg.18)";
 	Calendar cal = new GregorianCalendar();
 	Map<String, String> map = new HashMap<String, String> (1);
 	map.put(question,String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
@@ -96,7 +96,7 @@ public class RandomQuestionAnswerBuilder {
 }
 	
 	private Map<String, String> question4() {	
-		String question = "What day is today?";
+		String question = "What day of the week is today?";
 		Calendar cal = new GregorianCalendar();
 		Map<String, String> map = new HashMap<String, String> (1);
 		map.put(question,cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US));

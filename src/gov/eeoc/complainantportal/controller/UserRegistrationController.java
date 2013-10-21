@@ -114,7 +114,7 @@ public class UserRegistrationController implements Serializable{
 		try {
 			
 			StringBuffer buf = new StringBuffer();
-			buf.append("Thank you for using the Complainant Portal.");
+			buf.append("Thank you for using the EEOC Complainant Portal.");
 			buf.append("<br/><br/>");
 			buf.append("Your passcode is ");
 			buf.append(token);
@@ -127,13 +127,13 @@ public class UserRegistrationController implements Serializable{
 			buf.append("/public/complainantportal.jsf");
 			buf.append("'>ComplainantPortal Document Upload</a>");
 			buf.append("<br/></br>");
-			buf.append("If you are unable to upload documents with the link above then please copy and paste the following link into web browser:");
+			buf.append("If the link does not work, please copy and paste the following link into your web browser:");
 			buf.append("<br/></br>");
 			buf.append(WebUtil.getServerContext(FacesContext
 					.getCurrentInstance()));
 			buf.append("/public/complainantportal.jsf");
 			buf.append("<br/></br>");
-			buf.append("If you did not make this request, please contact EEOC Help Desk immediately at (202) 663-4767.");
+			buf.append("If you did not make this request, please contact the EEOC Help Desk immediately at (202) 663-4767.");
 			buf.append("<br/><br/>");
 			buf.append("Office Of Information Technology");
 			buf.append("<br/>");

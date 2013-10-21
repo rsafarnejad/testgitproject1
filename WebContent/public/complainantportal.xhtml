@@ -48,29 +48,7 @@
 								<f:validateRegex
 									pattern="^\s*[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]\s*$" />
 							</p:inputText>
-
-							<h:outputText value="Complainant First Name: "
-								style="font-weight: bold;" />
-							<h:outputText value="*" title="Required field" />
-							<p:inputText
-								value="#{complainantPortalController.complainantdata.complainantFirstName}"
-								id="complainantFirstName" label="complainantFirstName"
-								title="Complainant First Name" maxlength="50" size="24"
-								required="true"
-								requiredMessage=" Complainant First Name is required">
-							</p:inputText>
-
-							<h:outputText value="Complainant Last Name: "
-								style="font-weight: bold;" />
-							<h:outputText value="*" title="Required field" />
-							<p:inputText
-								value="#{complainantPortalController.complainantdata.complainantLastName}"
-								id="complainantLastName" label="complainantLastName"
-								title="Complainant Last Name" maxlength="50" size="24"
-								required="true"
-								requiredMessage=" Complainant Last Name is required">
-							</p:inputText>
-
+							
 							<h:outputText value="Document Submitter First Name: "
 								style="font-weight: bold;" />
 							<h:outputText value="*" title="Required field" />
@@ -93,14 +71,43 @@
 								required="true"
 								requiredMessage=" Document Submitter Last Name is required">
 							</p:inputText>
-
+							
+							<h:outputText value="Are you the complainant? " style="font-weight: bold;" />  
+							<h:outputText value="*" title="Required field" />
+							<p:selectOneRadio id="options" value="#{complainantPortalController.value}">  
+                              <f:selectItem itemLabel="Yes" itemValue="true" />  
+                              <f:selectItem itemLabel="No" itemValue="false" />     
+                            </p:selectOneRadio>
+                              
+							<h:outputText value="Complainant First Name: "
+								style="font-weight: bold;" />
+							<h:outputText value="*" title="Required field" />
+							<p:inputText
+								value="#{complainantPortalController.complainantdata.complainantFirstName}"
+								id="complainantFirstName" label="complainantFirstName"
+								title="Complainant First Name" maxlength="50" size="24"
+								required="true"
+								requiredMessage=" Complainant First Name is required">
+							</p:inputText>
+                             
+							<h:outputText value="Complainant Last Name: "
+								style="font-weight: bold;" />
+							<h:outputText value="*" title="Required field" />
+							<p:inputText
+								value="#{complainantPortalController.complainantdata.complainantLastName}"
+								id="complainantLastName" label="complainantLastName"
+								title="Complainant Last Name" maxlength="50" size="24"
+								required="true"
+								requiredMessage=" Complainant Last Name is required">
+							</p:inputText>
+                           
 							<h:outputText
-								value="Appeal Number(Please provide it for expedited processing):"
+								value="EEOC Appeal Number(Please provide it for expedited processing):"
 								style="font-weight: bold;" />
 							<h:outputText />
 							<p:inputText
 								value="#{complainantPortalController.complainantdata.appealNumber}"
-								id="appealNumber" title="AppealNumber. (Optional)"
+								id="appealNumber" title="EEOC Appeal Number. (Optional)"
 								maxlength="20" style="width: 150px !important">
 							</p:inputText>
 
