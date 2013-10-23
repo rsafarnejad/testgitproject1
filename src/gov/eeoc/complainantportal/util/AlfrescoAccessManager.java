@@ -31,6 +31,7 @@ import org.apache.chemistry.opencmis.commons.PropertyIds;
 import org.apache.chemistry.opencmis.commons.SessionParameter;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.PropertyData;
+import org.apache.chemistry.opencmis.commons.enums.Action;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
 import org.apache.chemistry.opencmis.commons.enums.VersioningState;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
@@ -297,7 +298,61 @@ public class AlfrescoAccessManager {
 		return documentId;
 
 	}
+	
+	public String addDocument(String folderNodeId, DocumentDetails dc, boolean isVersionable) {
 
+		Session session = getAdminSession();
+		String documentId = null;
+		Map<String, Object> props = new HashMap<String, Object>();
+		props.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
+		props.put(PropertyIds.OBJECT_TYPE_ID, "D:my:sop");
+		props.put(PROP_TAB_TYPE, dc.getTabType());
+		props.put(PROP_SUB_CAT_TYPE, dc.getSubCategory());
+		props.put(PROP_REL_DATE, dc.getRelatedDate());
+		props.put(PROP_TITLE, dc.getTitle());
+		props.put(PropertyIds.NAME, dc.getFileName());
+
+		props.put(PROP_APPEAL_NUMBER, dc.getAppealNumber());
+		props.put(PROP_COMPLAINT_ID, dc.getComplaintId());
+
+		ContentStream contentStream = session.getObjectFactory()
+				.createContentStream(dc.getFileName(), dc.getFileLength(),
+						dc.getMimeType(), dc.getContent());
+		Folder target = (Folder) session.getObject(folderNodeId);
+		Document existingDoc = getExistingDocument2(session, target,
+				dc.getFileName());
+		if (existingDoc == null) {
+			Document newDocument = target.createDocument(props, contentStream,
+					VersioningState.MAJOR);
+			if (newDocument != null) {
+				documentId = newDocument.getId();
+			}
+		} else if(isVersionable && isVersionable(existingDoc)){
+			try{
+				existingDoc.refresh();
+				ObjectId idOfCheckedOutDocument = existingDoc.checkOut();
+				Document pwc = (Document) session.getObject(idOfCheckedOutDocument);
+				ObjectId objId = pwc.checkIn(false, null, contentStream, "updated by complaint id : " + dc.getComplaintId());
+				if(objId != null){
+					documentId = objId.getId();
+				}
+			}catch(Exception e){
+				log.error("Error while checking out : " + e.getLocalizedMessage());
+				existingDoc.cancelCheckOut();
+			}
+			
+		}
+		if (session != null) {
+			session.clear();
+		}
+		return documentId;
+
+	}
+
+	private boolean isVersionable(Document doc){
+		return doc.getAllowableActions().getAllowableActions().contains(Action.CAN_CHECK_OUT);
+	}
+	
 	public List<DocumentDetails> getDocumentIdByMetaData(String folderId,
 			String metaDataType, String value) {
 
