@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 /**
  * The persistent class for the COMPLAINANT_DATA database table.
  * 
@@ -126,7 +128,7 @@ public class ComplainantData implements Serializable {
 	}
 
 	public void setComplainantFirstName(String complainantFirstName) {
-		this.complainantFirstName = complainantFirstName;
+		this.complainantFirstName = WordUtils.capitalize(complainantFirstName, null);
 	}
 
 	public String getComplainantLastName() {
@@ -134,7 +136,7 @@ public class ComplainantData implements Serializable {
 	}
 
 	public void setComplainantLastName(String complainantLastName) {
-		this.complainantLastName = complainantLastName;
+		this.complainantLastName = WordUtils.capitalize(complainantLastName, null);
 	}
 
 	public String getDocumentSubmitterFirstName() {
@@ -142,7 +144,7 @@ public class ComplainantData implements Serializable {
 	}
 
 	public void setDocumentSubmitterFirstName(String documentSubmitterFirstName) {
-		this.documentSubmitterFirstName = documentSubmitterFirstName;
+		this.documentSubmitterFirstName = WordUtils.capitalize(documentSubmitterFirstName,null);
 	}
 
 	public String getDocumentSubmitterLastName() {
@@ -150,7 +152,7 @@ public class ComplainantData implements Serializable {
 	}
 
 	public void setDocumentSubmitterLastName(String documentSubmitterLastName) {
-		this.documentSubmitterLastName = documentSubmitterLastName;
+		this.documentSubmitterLastName = WordUtils.capitalize(documentSubmitterLastName,null);
 	}
 
 	public String getDocumentType() {

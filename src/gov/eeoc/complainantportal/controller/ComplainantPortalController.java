@@ -210,7 +210,7 @@ public class ComplainantPortalController implements Serializable {
 					FacesMessage msg = new FacesMessage("The file entitled "+ this.file.getFileName() + " has been successfully uploaded.");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
 				} else {
-					FacesMessage msg = new FacesMessage("Failed! "+ this.file.getFileName() + " is not uploaded.");
+					FacesMessage msg = new FacesMessage("The file entitled "+ this.file.getFileName() + " already exists in the system.Please rename the file and upload it.");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
 				}
 
