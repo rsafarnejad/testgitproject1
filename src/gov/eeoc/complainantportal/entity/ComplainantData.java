@@ -112,7 +112,7 @@ public class ComplainantData implements Serializable {
 	}
 
 	public void setAgencyNumber(String agencyNumber) {
-		this.agencyNumber = agencyNumber;
+		this.agencyNumber =WordUtils.capitalize( agencyNumber,null);
 	}
 
 	public String getAppealNumber() {
@@ -120,7 +120,7 @@ public class ComplainantData implements Serializable {
 	}
 
 	public void setAppealNumber(String appealNumber) {
-		this.appealNumber = appealNumber;
+		this.appealNumber =WordUtils.capitalize(appealNumber, null);
 	}
 
 	public String getComplainantFirstName() {
